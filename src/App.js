@@ -1,5 +1,6 @@
 import { Grid } from '@material-ui/core'
-import { Messagelist, ChatList } from './components'
+import { Route, Switch } from 'react-router-dom'
+import { Messagelist, ChatList, ChooseChat } from './components'
 
 export const App = () => {
   return (
@@ -8,9 +9,18 @@ export const App = () => {
         <Grid item={true} xs={6}>
           <ChatList />
         </Grid>
-        <Grid item={true} xs={6}>
-          <Messagelist />
-        </Grid>
+        <Switch>
+          <Route path='/chats/:chatId'>
+            <Grid item={true} xs={6}>
+              <Messagelist />
+            </Grid>
+          </Route>
+          <Route path='/chats'>
+            <Grid item={true} xs={6}>
+              <ChooseChat />
+            </Grid>
+          </Route>
+        </Switch>
       </Grid>
     </div>
   )
