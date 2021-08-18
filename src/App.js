@@ -1,8 +1,10 @@
 import { Grid } from '@material-ui/core'
+import { connect } from 'react-redux'
 import { Route, Switch } from 'react-router-dom'
 import { Messagelist, ChatList, ChooseChat } from './components'
+import { increment } from './store/profile'
 
-export const App = () => {
+function App ({ count, incrementProps }) {
   return (
     <div>
       <Grid container={true} spacing={3}>
@@ -22,6 +24,17 @@ export const App = () => {
           </Route>
         </Switch>
       </Grid>
+      <h1>COUNT ={count}</h1>
+      <button onClick={incrementProps}>increment</button>
     </div>
   )
 }
+const mapStateToProps = (state) => {
+  return {
+    count: state.count,
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return { incrementProps: () => dispatch(increment()) }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(App)
