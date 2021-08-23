@@ -1,13 +1,31 @@
 export * from './profile'
-import { createStore, combineReducers } from 'redux'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import thunk from 'redux-thunk'
+
 import { chatsReducer } from './chats'
 import { messagesReducer } from './message-list'
+import { logger, botSendMessage } from './middleware'
 import { profileReducer } from './profile'
 
-export const store = createStore(
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistreducer = persistReducer(
+  persistConfig,
   combineReducers({
     profile: profileReducer,
     chats: chatsReducer,
     messages: messagesReducer,
   }),
 )
+
+export const store = createStore(
+  persistreducer,
+  applyMiddleware(thunk, logger, botSendMessage),
+)
+
+export const persistore = persistStore(store)

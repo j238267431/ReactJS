@@ -8,3 +8,22 @@ export const messagesSend = (message, chatId) => ({
 export const messages = () => ({
   type: MESSAGES,
 })
+
+export const SendMessageWithThunk = (message, chatId) => (dispatch) => {
+  dispatch(messagesSend(message, chatId))
+  if (message.author === 'user') {
+    setTimeout(
+      () =>
+        dispatch(
+          messagesSend(
+            {
+              text: 'hello thunk',
+              author: 'botThunk',
+            },
+            chatId,
+          ),
+        ),
+      1500,
+    )
+  }
+}
