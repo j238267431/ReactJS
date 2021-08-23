@@ -1,16 +1,22 @@
 import { Button, Input, InputAdornment } from '@material-ui/core'
 import { useState, useEffect, useRef } from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import { Switch, Route, useParams } from 'react-router-dom'
+import { messagesSend } from '../../store/message-list'
 
 export const Messagelist = () => {
   const inputRef = useRef(null)
   const [messageList, setMessageList] = useState([])
+  const dispatch = useDispatch()
+  const { chatId } = useParams()
+  const messageListRedux = useSelector(
+    (state) => state.messages.messages[chatId] || [],
+  )
 
   const [value, setValue] = useState('')
-  // const match = useRouteMatch()
 
   const sendMessage = () => {
-    setMessageList((state) => [...state, { text: value, author: 'she' }])
+    dispatch(messagesSend({ text: value, author: 'user' }, chatId))
     setValue('')
   }
 
@@ -48,7 +54,7 @@ export const Messagelist = () => {
       <ul>
         <Switch>
           <Route exact={true} path='/chats/:chatId'>
-            {messageList.map((message, id) => (
+            {messageListRedux.map((message, id) => (
               <>
                 <li key={id}>
                   {message.author} {message.text}
