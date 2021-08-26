@@ -2,7 +2,7 @@ import { Button, Input, InputAdornment } from '@material-ui/core'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Switch, Route, useParams } from 'react-router-dom'
-import { messagesSend } from '../../store/message-list'
+import { SendMessageWithThunk } from '../../store/message-list'
 
 export const Messagelist = () => {
   const inputRef = useRef(null)
@@ -16,7 +16,7 @@ export const Messagelist = () => {
   const [value, setValue] = useState('')
 
   const sendMessage = () => {
-    dispatch(messagesSend({ text: value, author: 'user' }, chatId))
+    dispatch(SendMessageWithThunk({ text: value, author: 'user' }, chatId))
     setValue('')
   }
 
