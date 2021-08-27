@@ -9,6 +9,7 @@ import App from './App'
 import { Page404 } from './components'
 import { Mainpage } from './Mainpage'
 // import { Profile } from './Profile'
+import { Gists } from './pages'
 import Profile from './Profile'
 
 import { store, persistore } from './store'
@@ -24,6 +25,10 @@ ReactDOM.render(
             </Route>
             <Route path='/profile'>
               <Profile />
+              <Link to='/'>back to main menu</Link>
+            </Route>
+            <Route path='/gists'>
+              <Gists />
               <Link to='/'>back to main menu</Link>
             </Route>
             <Route path='/chats'>

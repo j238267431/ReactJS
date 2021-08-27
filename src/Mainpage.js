@@ -11,6 +11,9 @@ export const Mainpage = () => {
         <li>
           <Link to='/profile'>profile</Link>
         </li>
+        <li>
+          <Link to='/gists'>gists</Link>
+        </li>
       </ul>
     </div>
   )
