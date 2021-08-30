@@ -1,6 +1,8 @@
 // import { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import { Link, useRouteMatch, Switch, Route, useParams } from 'react-router-dom'
+import { getChatListFB } from '../../store'
 
 export const ChatList = () => {
   // const [chatList] = useState([
@@ -10,6 +12,11 @@ export const ChatList = () => {
   const match = useRouteMatch()
   const params = useParams()
   const state = useSelector((state) => state.chats.chatList)
+
+  const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(getChatListFB)
+  }, [dispatch])
 
   return (
     <div>
