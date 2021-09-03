@@ -19,7 +19,7 @@ export const messagesReducer = (state = initialState, action) => {
         messages: {
           ...state.messages,
           [action.payload.chatId]: [
-            ...state.messages[action.payload.chatId],
+            ...(state.messages[action.payload.chatId] || []),
             { ...action.payload.message, id: new Date() },
           ],
         },
